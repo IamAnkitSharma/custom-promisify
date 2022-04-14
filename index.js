@@ -4,13 +4,19 @@ const client = {
   get: (time, cb) => {
     //mocking some asynchronous operation
     setTimeout(() => {
-      cb(null, 'Some Data')
-    }, time)
-  }
+      cb(null, "Some Data");
+    }, time);
+  },
 };
 
 (async () => {
-  const promisifiedGetCustom = customPromisify(client.get)
+  //callback way
+  client.get(3000, (err, data) => {
+    console.log('From callback - '+ data)
+  });
+
+  //async way
+  const promisifiedGetCustom = customPromisify(client.get);
   const data = await promisifiedGetCustom(3000);
-  console.log(data);
+  console.log('From promisifed - '+ data);
 })();
